@@ -131,13 +131,13 @@ use std::thread;
 use std::time::Duration;
 
 #[cfg(feature = "ipc")]
-pub use ipc_channel::ipc::IpcSender as Sender;
+pub use rr_channel::ipc_channel::ipc::IpcSender as Sender;
 
 #[cfg(feature = "ipc")]
-pub use ipc_channel::ipc::IpcReceiver as Receiver;
+pub use rr_channel::ipc_channel::ipc::IpcReceiver as Receiver;
 
 #[cfg(feature = "ipc")]
-pub use ipc_channel::ipc::channel;
+pub use rr_channel::ipc_channel::ipc::channel;
 
 #[cfg(not(feature = "ipc"))]
 pub use std::sync::mpsc::{Receiver, RecvTimeoutError, Sender};
@@ -156,7 +156,7 @@ pub fn recv_timeout<T>(receiver: &Receiver<T>, timeout: Duration) -> Result<T, R
 pub fn recv_timeout<T>(
     receiver: &Receiver<T>,
     timeout: Duration,
-) -> Result<T, ipc_channel::ipc::TryRecvError>
+) -> Result<T, rr_channel::ipc_channel::ipc::TryRecvError>
 where
     T: serde::Serialize + for<'a> serde::Deserialize<'a>,
 {
